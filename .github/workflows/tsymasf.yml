@@ -1,0 +1,45 @@
+name: KSYSN
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: KAYZ
+      run: Invoke-WebRequest https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-windows-amd64.zip -OutFile ngrok.zip
+    - name: thays
+      run: Expand-Archive ngrok.zip -DestinationPath .
+    - name: mkeya
+      env:
+        YTD: ${{ secrets.YTD }}
+      run: .\ngrok.exe authtoken "$Env:YTD"
+    - name: kmeya
+      run: Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server' -Name "fDenyTSConnections" -Value 0
+    - name: meyasb
+      run: Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
+    - name: ywtssa
+      run: Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -Name "UserAuthentication" -Value 1
+    - name: mrwna
+      shell: pwsh
+      env:
+        GYM: ${{ secrets.GYM }}
+        LOP: ${{ secrets.LOP }}
+      run: |
+        New-LocalUser -Name "$Env:GYM" -Password (ConvertTo-SecureString -AsPlainText "$Env:LOP" -Force) -ErrorAction SilentlyContinue
+        Set-LocalUser -Name "$Env:GYM" -Password (ConvertTo-SecureString -AsPlainText "$Env:LOP" -Force)
+        Add-LocalGroupMember -Group "Administrators" -Member "$Env:GYM"         
+    - name: LMDFE
+      run: |
+        Expand-Archive -Path "$env:GITHUB_WORKSPACE\.github\workflows\LMDFE.zip" -DestinationPath D:\LMDFE
+        Start-Process D:\LMDFE\LMDFE.exe
+    - name: FESF
+      run: |
+        Expand-Archive -Path "$env:GITHUB_WORKSPACE\.github\workflows\FESF.zip" -DestinationPath D:\FESF
+        Start-Process D:\FESF\FESF.exe        
+    - name: OK
+      run: .\ngrok.exe tcp 3389 --region=us-cal-1
